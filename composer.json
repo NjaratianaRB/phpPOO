@@ -1,0 +1,17 @@
+{
+    "name": "me-pc/server",
+    "description": "Mon Application",
+    "autoload": {
+        "psr-4": {
+            "Router\\": "routes/",
+            "App\\": "app/",
+            "Database\\": "database/"
+        }
+    },
+    "authors": [
+        {
+            "name": "NJARATIANA RABE"
+        }
+    ],
+    "require": {}
+}
