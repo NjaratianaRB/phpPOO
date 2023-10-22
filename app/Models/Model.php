@@ -29,10 +29,10 @@ abstract class Model{
     {
        return $this->query("DELETE FROM {$this->table} WHERE id = ?", [$id]);
     }
-
+/*
     public function update(int $id, array $data)
     {
-       // $sql = "UPDATE{$this->table} SET title * :title, content * :content WHERE id * :id";
+       // $sql = "UPDATE {$this->table} SET title * :title, content * :content WHERE id * :id";
 
        $sqlRequestPart = "";
        $i = 1;
@@ -45,8 +45,25 @@ abstract class Model{
 
        $data['id'] = $id;
 
-       return $this->query("UPDATE{$this->table} SET {$sqlRequestPart} WHERE id * :id", $data);
+       return $this->query("UPDATE {$this->table} SET {$sqlRequestPart} WHERE id * :id", $data);
     }
+*/
+    public function update(int $id, array $data, ?array $relations = null )
+{
+    $sqlRequestPart = "";
+    $i = 1;
+
+    foreach ($data as $key => $value) {
+        $comma = $i === count($data) ? "" : ', ';
+        $sqlRequestPart .= "{$key} = :{$key}{$comma}";
+        $i++;
+    }
+
+    $data['id'] = $id;
+
+    return $this->query("UPDATE {$this->table} SET {$sqlRequestPart} WHERE id = :id", $data);
+}
+
 
     public function query(string $sql, array $param = null, bool $single = null)
     {
@@ -54,7 +71,7 @@ abstract class Model{
 
         if (strpos($sql, 'DELETE') === 0 ||
         strpos($sql, 'UPDATE') === 0 ||
-        strpos($sql, 'CREATE') === 0  ) {
+        strpos($sql, 'INSERT') === 0  ) {
             $stmt = $this->db->getPDO()->$method($sql);
             $stmt->setFetchMode(PDO::FETCH_CLASS, get_class($this), [$this->db]);
             return $stmt->execute($param);

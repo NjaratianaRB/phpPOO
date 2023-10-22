@@ -7,8 +7,8 @@
             <div>
                 <?php foreach ($post->getTags() as $tag): ?>
 
-                <span class="badge rounded-pill text-bg-secondary"><?= $tag->name?> </span>  
-
+                <span class="badge rounded-pill text-bg-secondary"><a href="/tags/<?=$tag->id?>" class="text-white"><?= $tag->name?></a> </span>  
+                        
                 <?php endforeach ?>
 
             </div>

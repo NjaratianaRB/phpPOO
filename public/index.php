@@ -16,8 +16,11 @@ $router = new Router($_SERVER['REQUEST_URI']);
 $router->get('/', 'App\Controllers\BlogController@welcome');
 $router->get('/lists', 'App\Controllers\BlogController@index');
 $router->get('/post/:id', 'App\Controllers\BlogController@show');
+$router->get('/tags/:id', 'App\Controllers\BlogController@tag');
 
 $router->get('/admin/posts', 'App\Controllers\Admin\PostController@index');
+$router->get('/admin/posts/create', 'App\Controllers\Admin\PostController@create');
+$router->post('/admin/posts/create', 'App\Controllers\Admin\PostController@createPost');
 $router->post('/admin/posts/delete/:id', 'App\Controllers\Admin\PostController@destroy');
 $router->get('/admin/posts/edit/:id', 'App\Controllers\Admin\PostController@edit');
 $router->post('/admin/posts/edit/:id', 'App\Controllers\Admin\PostController@update');
